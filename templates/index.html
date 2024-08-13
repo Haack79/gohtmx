@@ -1,6 +1,36 @@
-<!Doctype html>
+<!DOCTYPE html>
 <html lang="en">
-    <body>
-        <h1>Hello, {{ .name }}!</h1>
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <title>ToDo List</title>
+    <script src="https://unpkg.com/htmx.org@2.0.0"
+        integrity="sha384-wS5l5IKJBvK6sPTKa2WZ1js3d947pvWXbPJ1OmWfEuxLgeHcEbjUUA5i9V5ZkpCw" crossorigin="anonymous">
+    </script>
+</head>
+<body>
+    <h1>Hello, {{ .name }}!</h1>
+
+    <h2>Tasks</h2>
+    <ul id="tasks">
+        {{range .todos}}
+            <li>
+                {{.Title}} - {{.Status}}
+                <button hx-delete="/todos/{{.Id}}">Delete</button>
+            </li>
+        {{else}}
+            <li>No tasks found.</li>
+        {{end}}
+    </ul>
+
+    <h2>Add a New ToDo</h2>
+    <form
+        hx-post="/todos"
+        hx-target="#tasks"
+        hx-swap="beforeend"
+    >
+        <input name="title" placeholder="Title" />
+        <input name="status" placeholder="Status" />
+        <button>Save</button>
+    </form>
+</body>
 </html>

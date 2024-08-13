@@ -1,0 +1,10 @@
+<ul id="tasks">
+    {{range .todos}}
+        <li>
+            {{.Title}} - {{.Status}}
+            <button hx-delete="/todos/{{.Id}}">Delete</button>
+        </li>
+    {{else}}
+        <li>No tasks found.</li>
+    {{end}}
+</ul>
